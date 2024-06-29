@@ -9,7 +9,7 @@ import {
   Text,
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
-import { API_ACCESS_TOKEN, API_URL } from '@env'
+import { API_ACCESS_TOKEN } from '@env'
 import axios from 'axios'
 
 import MovieItem from '../movies/MovieItem'
@@ -23,7 +23,7 @@ const KeywordSearch = () => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Success)
   const getMovieList = async (): Promise<void> => {
     setScreen(ScreenState.Loading)
-    const url = `${API_URL}/search/movie`
+    const url = `https://api.themoviedb.org/3/search/movie`
 
     try {
       const response = await axios.get(url, {

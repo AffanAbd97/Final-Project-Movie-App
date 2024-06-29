@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
-import { API_ACCESS_TOKEN, API_URL } from '@env'
+import { API_ACCESS_TOKEN } from '@env'
 import axios from 'axios'
 
 import CategoryView from './CategoryView'
@@ -13,7 +13,7 @@ const CategorySearch = () => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Loading)
   const getGenres = async (): Promise<void> => {
     setScreen(ScreenState.Loading)
-    const url = `${API_URL}/genre/movie/list`
+    const url = `https://api.themoviedb.org/3/genre/movie/list`
 
     try {
       const response = await axios.get(url, {

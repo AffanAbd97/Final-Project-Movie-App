@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-import { API_ACCESS_TOKEN, API_URL } from '@env'
+import { API_ACCESS_TOKEN } from '@env'
 import axios from 'axios'
 import Loading from './Loading'
 import {
@@ -23,7 +23,7 @@ const ListScreen = () => {
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Loading)
   const getMovie = async (): Promise<void> => {
     setScreen(ScreenState.Loading)
-    const url = `${API_URL}/discover/movie`
+    const url = `https://api.themoviedb.org/3/discover/movie`
 
     try {
       const response = await axios.get(url, {

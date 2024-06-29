@@ -1,16 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View, RefreshControl } from 'react-native'
 import { Movie } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
 
 function FavoriteScreen(): JSX.Element {
-  const [FavoriteList, setFavoriteList] = useState<Movie[]>([])
+  const [favoriteList, setFavoriteList] = useState<Movie[]>([])
+  const [refreshing, setRefreshing] = useState<boolean>(false)
+
   const getAllData = async (): Promise<Movie[]> => {
     try {
       const initialData: string | null =
         await AsyncStorage.getItem('@FavoriteList')
+
       const favorites: Movie[] = initialData ? JSON.parse(initialData) : []
       return favorites
     } catch (error) {
@@ -19,18 +21,28 @@ function FavoriteScreen(): JSX.Element {
     }
   }
 
+  const loadData = async () => {
+    const data = await getAllData()
+    setFavoriteList(data)
+  }
+
   useEffect(() => {
-    const check = async () => {
-      const data = await getAllData()
-      setFavoriteList(data)
+    loadData()
+    return () => {
+      setFavoriteList([])
     }
-    check()
   }, [])
+
+  const onRefresh = async () => {
+    setRefreshing(true)
+    await loadData()
+    setRefreshing(false)
+  }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={FavoriteList}
+        data={favoriteList}
         renderItem={({ item }) => (
           <View style={styles.movieList}>
             <MovieItem
@@ -42,10 +54,14 @@ function FavoriteScreen(): JSX.Element {
         )}
         numColumns={3}
         keyExtractor={(item) => item.id.toString()}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   )
 }
+
 const coverImageSize = {
   backdrop: {
     width: 280,
@@ -56,6 +72,7 @@ const coverImageSize = {
     height: 160,
   },
 }
+
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 72,

@@ -12,7 +12,7 @@ import {
   DetailScreenRouteProp,
 } from '../types/NavigationParams'
 import { Movie, ScreenState } from '../types/app'
-import { API_ACCESS_TOKEN, API_URL } from '@env'
+import { API_ACCESS_TOKEN } from '@env'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Loading from './Loading'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -25,7 +25,7 @@ import axios from 'axios'
 const DetailScreen = (): JSX.Element => {
   const route = useRoute<DetailScreenRouteProp>()
   const navigation = useNavigation<DetailScreenNavigationProp>()
-  navigation.setOptions({ title: 'Updated!' })
+
   const [movie, setMovie] = useState<Movie | null>(null)
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -36,7 +36,7 @@ const DetailScreen = (): JSX.Element => {
   const fetchData = async (): Promise<void> => {
     try {
       const ACCESS_TOKEN = API_ACCESS_TOKEN
-      const URL = `${API_URL as string}/movie/${movie_id}`
+      const URL = `https://api.themoviedb.org/3/movie/${movie_id}`
 
       if (!ACCESS_TOKEN || !URL) {
         throw new Error('ENV not found')
@@ -63,6 +63,7 @@ const DetailScreen = (): JSX.Element => {
   useEffect(() => {
     if (movie) {
       setScreen(ScreenState.Success)
+      navigation.setOptions({ title: movie.title })
     }
   }, [movie])
 
