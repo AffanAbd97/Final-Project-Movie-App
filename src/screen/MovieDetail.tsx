@@ -134,6 +134,21 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
             <Text style={styles.title}>{movieDetail?.original_title}</Text>
             <Text style={styles.overview}>{movieDetail?.overview}</Text>
           </View>
+          <TouchableOpacity
+            onPress={() =>
+              !isFavorite
+                ? addFavorite(movieDetail as Movie)
+                : removeFavorite(movieDetail?.id as number)
+            }
+          >
+            <FontAwesome style={styles.favoriteButtonContainer}
+              name={isFavorite ? "heart" : "heart-o"}
+              size={40}
+              color={"white"}
+            />
+            
+          </TouchableOpacity>
+       
         </ImageBackground>
       )}
       <View style={styles.content}>
@@ -154,19 +169,7 @@ const MovieDetail = ({ route }: { route: RouteProp<any> }) => {
         />
 
         <View style={styles.favoriteButtonContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              !isFavorite
-                ? addFavorite(movieDetail as Movie)
-                : removeFavorite(movieDetail?.id as number)
-            }
-          >
-            <FontAwesome
-              name={isFavorite ? "heart" : "heart-o"}
-              size={60}
-              color={"blue"}
-            />
-          </TouchableOpacity>
+          
         </View>
       </View>
     </View>
@@ -179,16 +182,23 @@ const styles = StyleSheet.create({
   headerImage: {
     width: '100%',
     height: 300,
-    justifyContent: 'flex-end',
+    
+    margin:0,
   },
   headerOverlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 20,
+    height:'100%',
+    justifyContent:'flex-end',
+    alignContent:'flex-end'
+    
   },
   title: {
     fontSize: 24,
     color: 'white',
-    marginBottom: 10,
+
+    
+    
   },
   overview: {
     color: 'white',
@@ -196,6 +206,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
+    height:'100%'
   },
   recommendationTitle: {
     fontSize: 20,
@@ -208,7 +219,12 @@ const styles = StyleSheet.create({
     maxHeight: 160,
   },
   favoriteButtonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    left: 380,
+    
+    bottom: 280,
+    position:'relative',
+    
+  
+    
   },
 });
