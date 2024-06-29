@@ -1,15 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import BottomTabNavigator from './src/navigation/BottomTabNavigation'
+import React from 'react'
 
-export default function App(): JSX.Element  {
+export default function App(): JSX.Element {
   return (
     <NavigationContainer>
       <BottomTabNavigator />
     </NavigationContainer>
-    
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -19,4 +18,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
