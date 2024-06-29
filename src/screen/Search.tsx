@@ -1,10 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { SearchStackNavigation } from '../navigation/StackNavigation'
 
-export default function Search(): JSX.Element {
-  return (
-    <View>
-      <Text>Search</Text>
-    </View>
-  )
+const Search = (): JSX.Element => {
+  return <SearchStackNavigation />
 }
+
+export default Search

@@ -5,16 +5,15 @@ import { API_ACCESS_TOKEN } from '@env'
 import MovieItem from './MovieItem'
 
 export const coverImageSize = {
-    backdrop: {
-      width: 280,
-      height: 160,
-    },
-    poster: {
-      width: 100,
-      height: 160,
-    },
-  }
-
+  backdrop: {
+    width: 280,
+    height: 160,
+  },
+  poster: {
+    width: 100,
+    height: 160,
+  },
+}
 
 const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -43,8 +42,6 @@ const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
       })
   }
 
-  console.log(movies)
-
   return (
     <View>
       <View style={styles.header}>
@@ -71,7 +68,6 @@ const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
     </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   header: {
