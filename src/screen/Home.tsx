@@ -1,7 +1,8 @@
 import React from 'react'
-import HomeStackNavigator from '../navigation/HomeStackNavigation'
+import { HomeStackNavigation } from '../navigation/StackNavigation'
+
 function Home(): JSX.Element {
-  return <HomeStackNavigator />
+  return <HomeStackNavigation />
 }
 
 export default Home

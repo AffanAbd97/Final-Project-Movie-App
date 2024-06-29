@@ -1,5 +1,4 @@
 import {
-  Button,
   ImageBackground,
   StyleSheet,
   Text,
@@ -14,7 +13,7 @@ import {
 } from '../types/NavigationParams'
 import { Movie, ScreenState } from '../types/app'
 import { API_ACCESS_TOKEN, API_URL } from '@env'
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Loading from './Loading'
 import { LinearGradient } from 'expo-linear-gradient'
 import InfoText from '../component/InfoText'
@@ -26,6 +25,7 @@ import axios from 'axios'
 const DetailScreen = (): JSX.Element => {
   const route = useRoute<DetailScreenRouteProp>()
   const navigation = useNavigation<DetailScreenNavigationProp>()
+  navigation.setOptions({ title: 'Updated!' })
   const [movie, setMovie] = useState<Movie | null>(null)
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -74,15 +74,44 @@ const DetailScreen = (): JSX.Element => {
   }, [movie_id])
 
   const checkIsFavorite = async (id: number): Promise<boolean> => {
-  
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList')
+      const favorites: Movie[] = initialData ? JSON.parse(initialData) : []
+      return favorites.some((item) => item.id === id)
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   }
 
   const removeFavorite = async (id: number): Promise<void> => {
- 
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList')
+      const favorites: Movie[] = initialData ? JSON.parse(initialData) : []
+      const updatedFavorites = favorites.filter((item) => item.id !== id)
+      await AsyncStorage.setItem(
+        '@FavoriteList',
+        JSON.stringify(updatedFavorites),
+      )
+      setIsFavorite(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const addFavorite = async (movie: Movie): Promise<void> => {
-
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList')
+      const favMovieList: Movie[] = initialData ? JSON.parse(initialData) : []
+      favMovieList.push(movie)
+      await AsyncStorage.setItem('@FavoriteList', JSON.stringify(favMovieList))
+      setIsFavorite(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const renderComponent = (): JSX.Element => {
