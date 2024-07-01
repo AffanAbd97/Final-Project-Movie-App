@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   genreText: {
     fontSize: 16,
-    color: '#000', // Ensure text color is black for visibility
+    color: '#000',
   },
   searchButton: {
     marginTop: 20,
