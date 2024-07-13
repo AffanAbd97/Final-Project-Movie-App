@@ -22,6 +22,7 @@ const MovieList = ({
   path,
   coverType,
   label,
+  button = true,
 }: MovieListProps): JSX.Element => {
   const [movies, setMovies] = useState<Movie[]>([])
   const navigation = useNavigation()
@@ -59,15 +60,17 @@ const MovieList = ({
     <Layout>
       <Layout style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <Button
-          style={styles.button}
-          appearance="ghost"
-          size="small"
-          onPress={handleMore}
-          status="info"
-        >
-          Lihat Semua
-        </Button>
+        {button && (
+          <Button
+            style={styles.button}
+            appearance="ghost"
+            size="small"
+            onPress={handleMore}
+            status="info"
+          >
+            Lihat Semua
+          </Button>
+        )}
       </Layout>
       {loading ? (
         <Layout

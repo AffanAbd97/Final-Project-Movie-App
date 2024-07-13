@@ -3,6 +3,7 @@ export interface MovieListProps {
   path: string
   coverType: 'poster' | 'backdrop'
   label?: string
+  button?: boolean
 }
 export interface MovieItemProps {
   movie: Movie

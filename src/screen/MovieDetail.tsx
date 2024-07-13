@@ -21,6 +21,7 @@ import { formatDate } from '../helper/utils'
 import MovieList from '../component/movies/MovieList'
 import { FontAwesome } from '@expo/vector-icons'
 import axios from 'axios'
+import { Layout } from '@ui-kitten/components'
 
 const DetailScreen = (): JSX.Element => {
   const route = useRoute<DetailScreenRouteProp>()
@@ -186,12 +187,14 @@ const Detail = ({
     ratingContainer: {
       flexDirection: 'row',
       alignItems: 'center',
+      backgroundColor: 'transparent',
       gap: 2,
     },
     movieContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      backgroundColor: 'transparent',
     },
     rating: {
       color: 'yellow',
@@ -212,7 +215,7 @@ const Detail = ({
     },
   })
   return (
-    <View>
+    <Layout style={{ backgroundColor: 'white', height: '100%' }}>
       <ImageBackground
         resizeMode="cover"
         style={styles.backgroundImage}
@@ -227,11 +230,11 @@ const Detail = ({
           style={styles.gradientStyle}
         >
           <Text style={styles.movieTitle}>{movie.title}</Text>
-          <View style={styles.movieContainer}>
-            <View style={styles.ratingContainer}>
+          <Layout style={styles.movieContainer}>
+            <Layout style={styles.ratingContainer}>
               <FontAwesome name="star" size={16} color="yellow" />
               <Text style={styles.rating}>{movie.vote_average.toFixed(1)}</Text>
-            </View>
+            </Layout>
             <TouchableOpacity onPress={handleFavorite}>
               <FontAwesome
                 name={isFavorite ? 'heart' : 'heart-o'}
@@ -239,12 +242,12 @@ const Detail = ({
                 color="pink"
               />
             </TouchableOpacity>
-          </View>
+          </Layout>
         </LinearGradient>
       </ImageBackground>
-      <View style={styles.padding}>
+      <Layout style={styles.padding}>
         <Text style={styles.overview}>{movie.overview}</Text>
-        <View style={styles.infoWrapper}>
+        <Layout style={styles.infoWrapper}>
           <InfoText text={movie.original_language} title="Original Language" />
           <InfoText text={`${movie.popularity}`} title="Popularity" />
           <InfoText
@@ -252,14 +255,17 @@ const Detail = ({
             title="Release Date"
           />
           <InfoText text={`${movie.vote_count}`} title="Vote Count" />
-        </View>
-      </View>
-      <MovieList
-        title={'Recommendation'}
-        path={`/movie/${movie_id}/recommendations`}
-        coverType={'poster'}
-      />
-    </View>
+        </Layout>
+      </Layout>
+      <Layout style={{ paddingHorizontal: 16 }}>
+        <MovieList
+          title={'Recommendation'}
+          path={`/movie/${movie_id}/recommendations`}
+          coverType={'poster'}
+          button={false}
+        />
+      </Layout>
+    </Layout>
   )
 }
 

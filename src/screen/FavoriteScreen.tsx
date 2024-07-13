@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View, RefreshControl } from 'react-native'
+import { FlatList, StyleSheet, RefreshControl } from 'react-native'
 import { Movie } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
+import { Layout } from '@ui-kitten/components'
 
 function FavoriteScreen(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<Movie[]>([])
@@ -40,17 +41,17 @@ function FavoriteScreen(): JSX.Element {
   }
 
   return (
-    <View style={styles.container}>
+    <Layout style={styles.container}>
       <FlatList
         data={favoriteList}
         renderItem={({ item }) => (
-          <View style={styles.movieList}>
+          <Layout style={styles.movieList}>
             <MovieItem
               movie={item}
               size={coverImageSize['poster']}
               coverType={'poster'}
             />
-          </View>
+          </Layout>
         )}
         numColumns={3}
         keyExtractor={(item) => item.id.toString()}
@@ -58,7 +59,7 @@ function FavoriteScreen(): JSX.Element {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-    </View>
+    </Layout>
   )
 }
 
@@ -76,6 +77,7 @@ const coverImageSize = {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 72,
+    height: '100%',
   },
   title: {
     fontSize: 20,
