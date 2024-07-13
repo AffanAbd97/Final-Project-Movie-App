@@ -2,11 +2,16 @@ export interface MovieListProps {
   title: string
   path: string
   coverType: 'poster' | 'backdrop'
+  label?: string
 }
 export interface MovieItemProps {
   movie: Movie
   size: { width: number; height: number }
   coverType: 'poster' | 'backdrop'
+}
+export interface MovieCardProps {
+  movie: Movie
+  showGenre: boolean
 }
 export interface Movie {
   backdrop_path: string

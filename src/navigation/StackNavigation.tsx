@@ -5,6 +5,7 @@ import FavoriteScreen from '../screen/FavoriteScreen'
 import SearchScreen from '../screen/SearchScreen'
 import ListScreen from '../screen/ListScreen'
 import HomeScreen from '../screen/HomeScreen'
+import MoreScreen from '../screen/MoreScreen'
 
 const Stack = createNativeStackNavigator()
 function HomeStackNavigation(): JSX.Element {
@@ -15,6 +16,15 @@ function HomeStackNavigation(): JSX.Element {
         component={HomeScreen}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen name="More" component={MoreScreen} />
+    </Stack.Navigator>
+  )
+}
+function MoreStackNavigation(): JSX.Element {
+  return (
+    <Stack.Navigator initialRouteName="More">
+      <Stack.Screen name="More" component={MoreScreen} />
       <Stack.Screen name="Detail" component={DetailScreen} />
     </Stack.Navigator>
   )
@@ -45,4 +55,9 @@ function SearchStackNavigation(): JSX.Element {
   )
 }
 
-export { HomeStackNavigation, FavoriteStackNavigation, SearchStackNavigation }
+export {
+  HomeStackNavigation,
+  FavoriteStackNavigation,
+  SearchStackNavigation,
+  MoreStackNavigation,
+}

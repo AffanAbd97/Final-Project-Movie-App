@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import type { MovieListProps, Movie } from '../../types/app'
 import { API_ACCESS_TOKEN } from '@env'
 import MovieItem from './MovieItem'
 import axios from 'axios'
-
+import { Button, Layout, List, Spinner, Text } from '@ui-kitten/components'
+import { StackActions, useNavigation } from '@react-navigation/native'
 export const coverImageSize = {
   backdrop: {
-    width: 280,
-    height: 160,
+    width: 360,
+    height: 205,
   },
   poster: {
-    width: 100,
-    height: 160,
+    width: 129,
+    height: 192,
   },
 }
 
-const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
+const MovieList = ({
+  title,
+  path,
+  coverType,
+  label,
+}: MovieListProps): JSX.Element => {
   const [movies, setMovies] = useState<Movie[]>([])
-
+  const navigation = useNavigation()
+  const [loading, setLoading] = useState<boolean>(false)
+  const pushAction = StackActions.push('More', { url: path, title: label })
   useEffect(() => {
     getMovieList()
   }, [])
 
   const getMovieList = (): void => {
+    setLoading(true)
     const url = `https://api.themoviedb.org/3/${path}`
 
     axios
@@ -36,60 +45,86 @@ const MovieList = ({ title, path, coverType }: MovieListProps): JSX.Element => {
       .then((response) => {
         const data = response.data
         setMovies(data.results)
+        setLoading(false)
       })
       .catch((errorResponse) => {
         console.log(errorResponse)
+        setLoading(false)
       })
   }
-
+  const handleMore = () => {
+    navigation.dispatch(pushAction)
+  }
   return (
-    <View>
-      <View style={styles.header}>
-        <View style={styles.purpleLabel}></View>
+    <Layout>
+      <Layout style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-      </View>
-      <FlatList
-        style={{
-          ...styles.movieList,
-          maxHeight: coverImageSize[coverType].height,
-        }}
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        data={movies}
-        renderItem={({ item }) => (
-          <MovieItem
-            movie={item}
-            size={coverImageSize[coverType]}
-            coverType={coverType}
-          />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+        <Button
+          style={styles.button}
+          appearance="ghost"
+          size="small"
+          onPress={handleMore}
+          status="info"
+        >
+          Lihat Semua
+        </Button>
+      </Layout>
+      {loading ? (
+        <Layout
+          style={{
+            height: coverImageSize[coverType].height / 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Spinner status="info" />
+        </Layout>
+      ) : (
+        <List
+          style={{
+            ...styles.movieList,
+            maxHeight: coverImageSize[coverType].height,
+          }}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          data={movies.slice(0, 5)}
+          renderItem={({ item }) => (
+            <MovieItem
+              movie={item}
+              size={coverImageSize[coverType]}
+              coverType={coverType}
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      )}
+    </Layout>
   )
 }
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 20,
-    marginLeft: 6,
+    marginTop: 16,
+
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  purpleLabel: {
-    width: 20,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#8978A4',
-    marginRight: 12,
+  button: {
+    padding: 0,
+    margin: 0,
+    paddingRight: 0,
+    paddingLeft: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   title: {
-    fontSize: 20,
-    fontWeight: '900',
+    fontSize: 16,
+    fontWeight: '800',
   },
   movieList: {
-    paddingLeft: 4,
     marginTop: 8,
   },
 })
