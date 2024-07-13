@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import {
   MoreScreenNavigationProp,
@@ -11,6 +11,7 @@ import { Movie, ScreenState } from '../types/app'
 import Loading from './Loading'
 
 import MovieCard from '../component/movies/MovieCard'
+import { Layout, Text } from '@ui-kitten/components'
 
 const MoreScreen = () => {
   const route = useRoute<MoreScreenRouteProp>()
@@ -53,38 +54,38 @@ const MoreScreen = () => {
     switch (screen) {
       case ScreenState.Success:
         return (
-          <View style={styles.container}>
+          <Layout style={styles.container}>
             {/* <Text style={styles.genreTitle}>{genre_name}</Text> */}
             <FlatList
               data={movieList}
               renderItem={({ item }) => (
-                <View style={styles.movieList}>
+                <Layout style={styles.movieList}>
                   <MovieCard movie={item} showGenre={false} />
                   {/* <MovieItem
                     movie={item}
                     size={coverImageSize['poster']}
                     coverType={'poster'}
                   /> */}
-                </View>
+                </Layout>
               )}
               keyExtractor={(item) => item.id.toString()}
             />
-          </View>
+          </Layout>
         )
       case ScreenState.Loading:
         return (
-          <View style={{ height: '80%' }}>
+          <Layout style={{ height: '80%' }}>
             <Loading />
-          </View>
+          </Layout>
         )
       case ScreenState.Error:
         return (
-          <View>
+          <Layout>
             <Text>No movie found</Text>
-          </View>
+          </Layout>
         )
       default:
-        return <View />
+        return <Layout />
     }
   }
 

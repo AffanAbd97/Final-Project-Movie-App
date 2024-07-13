@@ -8,6 +8,7 @@ const Loading = () => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100%',
       }}
     >
       <Spinner status="info" size="large" />

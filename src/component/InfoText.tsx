@@ -1,5 +1,6 @@
+import { Layout, Text } from '@ui-kitten/components'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 type Props = {
   title: string
@@ -8,10 +9,10 @@ type Props = {
 
 const InfoText = ({ title, text }: Props) => {
   return (
-    <View style={styles.flexChild}>
+    <Layout style={styles.flexChild}>
       <Text style={styles.infoTitle}>{title}</Text>
       <Text>{text}</Text>
-    </View>
+    </Layout>
   )
 }
 

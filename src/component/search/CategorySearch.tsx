@@ -1,4 +1,3 @@
-import { Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { API_ACCESS_TOKEN } from '@env'
@@ -7,6 +6,7 @@ import axios from 'axios'
 import CategoryView from './CategoryView'
 import { Genre, ScreenState } from '../../types/app'
 import Loading from '../../screen/Loading'
+import { Layout, Text } from '@ui-kitten/components'
 
 const CategorySearch = () => {
   const [genres, setGenres] = useState<Genre[]>([])
@@ -41,18 +41,18 @@ const CategorySearch = () => {
         return <CategoryView genres={genres} />
       case ScreenState.Loading:
         return (
-          <View style={{ height: '80%' }}>
+          <Layout style={{ height: '80%' }}>
             <Loading />
-          </View>
+          </Layout>
         )
       case ScreenState.Error:
         return (
-          <View>
+          <Layout>
             <Text>No Categories</Text>
-          </View>
+          </Layout>
         )
       default:
-        return <View />
+        return <Layout />
     }
   }
   return <RenderComponent />

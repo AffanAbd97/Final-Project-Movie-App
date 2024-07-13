@@ -1,10 +1,4 @@
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import {
@@ -21,7 +15,7 @@ import { formatDate } from '../helper/utils'
 import MovieList from '../component/movies/MovieList'
 import { FontAwesome } from '@expo/vector-icons'
 import axios from 'axios'
-import { Layout } from '@ui-kitten/components'
+import { Layout, Text } from '@ui-kitten/components'
 
 const DetailScreen = (): JSX.Element => {
   const route = useRoute<DetailScreenRouteProp>()
@@ -136,12 +130,12 @@ const DetailScreen = (): JSX.Element => {
         return <Loading />
       case ScreenState.Error:
         return (
-          <View>
+          <Layout>
             <Text>No movie found</Text>
-          </View>
+          </Layout>
         )
       default:
-        return <View />
+        return <Layout />
     }
   }
 

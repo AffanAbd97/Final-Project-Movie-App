@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -11,6 +11,7 @@ import {
 } from '../types/NavigationParams'
 import { Movie, ScreenState } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
+import { Layout, Text } from '@ui-kitten/components'
 
 const ListScreen = () => {
   const route = useRoute<ListScreenRouteProp>()
@@ -54,38 +55,38 @@ const ListScreen = () => {
     switch (screen) {
       case ScreenState.Success:
         return (
-          <View style={styles.container}>
+          <Layout style={styles.container}>
             <Text style={styles.genreTitle}>{genre_name}</Text>
             <FlatList
               data={movieList}
               renderItem={({ item }) => (
-                <View style={styles.movieList}>
+                <Layout style={styles.movieList}>
                   <MovieItem
                     movie={item}
                     size={coverImageSize['poster']}
                     coverType={'poster'}
                   />
-                </View>
+                </Layout>
               )}
               numColumns={3}
               keyExtractor={(item) => item.id.toString()}
             />
-          </View>
+          </Layout>
         )
       case ScreenState.Loading:
         return (
-          <View style={{ height: '80%' }}>
+          <Layout style={{ height: '80%' }}>
             <Loading />
-          </View>
+          </Layout>
         )
       case ScreenState.Error:
         return (
-          <View>
+          <Layout>
             <Text>No movie found</Text>
-          </View>
+          </Layout>
         )
       default:
-        return <View />
+        return <Layout />
     }
   }
 

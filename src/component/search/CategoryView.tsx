@@ -1,8 +1,9 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 
 import { useNavigation, StackActions } from '@react-navigation/native'
 import { Genre } from '../../types/app'
+import { Layout, Text } from '@ui-kitten/components'
 type Props = {
   genres: Genre[]
 }
@@ -18,8 +19,8 @@ const CategoryView = ({ genres }: Props) => {
     navigation.dispatch(pushAction)
   }
   return (
-    <View style={styles.container}>
-      <View style={styles.genreContainer}>
+    <Layout style={styles.container}>
+      <Layout style={styles.genreContainer}>
         {genres.map((genre, index) => (
           <TouchableOpacity
             key={index}
@@ -31,10 +32,10 @@ const CategoryView = ({ genres }: Props) => {
             ]}
             onPress={() => handleSelectGenre(genre)}
           >
-            <Text>{genre.name}</Text>
+            <Text style={styles.genreText}>{genre.name}</Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </Layout>
       <TouchableOpacity
         style={styles.searchButton}
         onPress={handleSearch}
@@ -42,7 +43,7 @@ const CategoryView = ({ genres }: Props) => {
       >
         <Text style={styles.searchButtonText}>Search</Text>
       </TouchableOpacity>
-    </View>
+    </Layout>
   )
 }
 
@@ -51,11 +52,12 @@ export default CategoryView
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#F5F5F5',
+
+    height: '100%',
   },
   genreContainer: {
     flexDirection: 'row',
+    padding: 20,
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
@@ -63,21 +65,22 @@ const styles = StyleSheet.create({
     width: '48%',
     padding: 10,
     marginVertical: 5,
-    backgroundColor: '#e0d7ec',
+    backgroundColor: '#9bcfff',
     borderRadius: 15,
     alignItems: 'center',
   },
   selectedGenreButton: {
-    backgroundColor: '#B39DDB',
+    backgroundColor: '#3f88c5',
+    tintColor: 'white',
   },
   genreText: {
     fontSize: 16,
-    color: '#000',
+    // color: '#000',
   },
   searchButton: {
     marginTop: 20,
     padding: 15,
-    backgroundColor: '#9575CD',
+    backgroundColor: '#3f88c5',
     borderRadius: 25,
     alignItems: 'center',
   },

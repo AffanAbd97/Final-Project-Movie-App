@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import {
-  View,
   TextInput,
   StyleSheet,
   NativeSyntheticEvent,
@@ -15,6 +14,7 @@ import axios from 'axios'
 import MovieItem from '../movies/MovieItem'
 import { Movie, ScreenState } from '../../types/app'
 import Loading from '../../screen/Loading'
+import { Layout } from '@ui-kitten/components'
 
 const KeywordSearch = () => {
   const [keyword, setKeyword] = useState<string>('')
@@ -67,13 +67,13 @@ const KeywordSearch = () => {
           <FlatList
             data={movieList}
             renderItem={({ item }) => (
-              <View style={styles.movieList}>
+              <Layout style={styles.movieList}>
                 <MovieItem
                   movie={item}
                   size={coverImageSize['poster']}
                   coverType={'poster'}
                 />
-              </View>
+              </Layout>
             )}
             numColumns={3}
             keyExtractor={(item) => item.id.toString()}
@@ -81,24 +81,24 @@ const KeywordSearch = () => {
         )
       case ScreenState.Loading:
         return (
-          <View style={{ height: '80%' }}>
+          <Layout style={{ height: '80%' }}>
             <Loading />
-          </View>
+          </Layout>
         )
       case ScreenState.Error:
         return (
-          <View>
+          <Layout>
             <Text>No movie found</Text>
-          </View>
+          </Layout>
         )
       default:
-        return <View />
+        return <Layout />
     }
   }
   return (
-    <View style={styles.outerContainer}>
-      <View style={styles.container}>
-        <View style={styles.searchSection}>
+    <Layout style={styles.outerContainer}>
+      <Layout style={styles.container}>
+        <Layout style={styles.searchSection}>
           <Feather
             style={styles.searchIcon}
             name="search"
@@ -111,10 +111,10 @@ const KeywordSearch = () => {
             placeholderTextColor={'#222'}
             onSubmitEditing={onSubmit}
           />
-        </View>
-      </View>
+        </Layout>
+      </Layout>
       <RenderComponent />
-    </View>
+    </Layout>
   )
 }
 const coverImageSize = {

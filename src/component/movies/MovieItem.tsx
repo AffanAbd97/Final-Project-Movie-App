@@ -3,13 +3,13 @@ import {
   ImageBackground,
   Text,
   StyleSheet,
-  View,
   TouchableOpacity,
 } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { MovieItemProps } from '../../types/app'
 import { useNavigation, StackActions } from '@react-navigation/native'
+import { Layout } from '@ui-kitten/components'
 
 const MovieItem = ({ movie, size, coverType }: MovieItemProps): JSX.Element => {
   const navigation = useNavigation()
@@ -36,10 +36,10 @@ const MovieItem = ({ movie, size, coverType }: MovieItemProps): JSX.Element => {
           style={styles.gradientStyle}
         >
           <Text style={styles.movieTitle}>{movie.title}</Text>
-          <View style={styles.ratingContainer}>
+          <Layout style={styles.ratingContainer}>
             <FontAwesome name="star" size={16} color="yellow" />
             <Text style={styles.rating}>{movie.vote_average.toFixed(1)}</Text>
-          </View>
+          </Layout>
         </LinearGradient>
       </ImageBackground>
     </TouchableOpacity>
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: 'transparent',
     gap: 2,
   },
   rating: {
