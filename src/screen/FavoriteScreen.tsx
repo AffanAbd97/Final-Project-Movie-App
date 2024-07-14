@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, RefreshControl } from 'react-native'
+import { StyleSheet, RefreshControl } from 'react-native'
 import { Movie } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
-import { Layout } from '@ui-kitten/components'
+import { Layout, List } from '@ui-kitten/components'
 
 function FavoriteScreen(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<Movie[]>([])
@@ -41,24 +41,33 @@ function FavoriteScreen(): JSX.Element {
   }
 
   return (
-    <Layout style={styles.container}>
-      <FlatList
-        data={favoriteList}
-        renderItem={({ item }) => (
-          <Layout style={styles.movieList}>
-            <MovieItem
-              movie={item}
-              size={coverImageSize['poster']}
-              coverType={'poster'}
-            />
-          </Layout>
-        )}
-        numColumns={3}
-        keyExtractor={(item) => item.id.toString()}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+    <Layout style={{ height: '100%', width: '100%' }}>
+      <Layout style={styles.container}>
+        <List
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            width: '100%',
+            height: '100%',
+            marginLeft: 20,
+          }}
+          data={favoriteList}
+          renderItem={({ item }) => (
+            <Layout style={styles.movieList}>
+              <MovieItem
+                movie={item}
+                size={coverImageSize['poster']}
+                coverType={'poster'}
+              />
+            </Layout>
+          )}
+          numColumns={2}
+          keyExtractor={(item) => item.id.toString()}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      </Layout>
     </Layout>
   )
 }
@@ -69,14 +78,15 @@ const coverImageSize = {
     height: 160,
   },
   poster: {
-    width: 100,
-    height: 160,
+    width: 180,
+    height: 288,
   },
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 72,
+    padding: 8,
+    paddingBottom: 0,
     height: '100%',
   },
   title: {
@@ -87,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 })
 

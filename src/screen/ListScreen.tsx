@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -11,7 +11,7 @@ import {
 } from '../types/NavigationParams'
 import { Movie, ScreenState } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
-import { Layout, Text } from '@ui-kitten/components'
+import { Layout, List, Text } from '@ui-kitten/components'
 
 const ListScreen = () => {
   const route = useRoute<ListScreenRouteProp>()
@@ -56,8 +56,14 @@ const ListScreen = () => {
       case ScreenState.Success:
         return (
           <Layout style={styles.container}>
-            <Text style={styles.genreTitle}>{genre_name}</Text>
-            <FlatList
+            <List
+              style={{
+                flex: 1,
+                alignSelf: 'center',
+                width: '100%',
+                height: '100%',
+                marginLeft: 20,
+              }}
               data={movieList}
               renderItem={({ item }) => (
                 <Layout style={styles.movieList}>
@@ -68,7 +74,7 @@ const ListScreen = () => {
                   />
                 </Layout>
               )}
-              numColumns={3}
+              numColumns={2}
               keyExtractor={(item) => item.id.toString()}
             />
           </Layout>
@@ -98,29 +104,25 @@ const coverImageSize = {
     height: 160,
   },
   poster: {
-    width: 100,
-    height: 160,
+    width: 180,
+    height: 288,
   },
 }
 const styles = StyleSheet.create({
+  container: {
+    padding: 8,
+    paddingBottom: 0,
+    height: '100%',
+  },
   title: {
     fontSize: 20,
     fontWeight: '900',
-  },
-  container: {
-    paddingBottom: 72,
   },
   movieList: {
     marginTop: 8,
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-  },
-  genreTitle: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 26,
-    paddingVertical: 16,
+    alignItems: 'flex-start',
   },
 })
 export default ListScreen
