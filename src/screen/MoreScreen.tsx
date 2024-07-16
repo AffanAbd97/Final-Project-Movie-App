@@ -20,7 +20,9 @@ const MoreScreen = () => {
 
   const [movieList, setMovieList] = useState<Movie[]>([])
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Loading)
-  navigation.setOptions({ title: genre_name })
+  useEffect(() => {
+    navigation.setOptions({ title: genre_name })
+  }, [genre_name])
 
   const url = route.params.url
   useEffect(() => {

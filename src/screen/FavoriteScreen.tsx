@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, RefreshControl } from 'react-native'
 import { Movie } from '../types/app'
 import MovieItem from '../component/movies/MovieItem'
-import { Layout, List } from '@ui-kitten/components'
+import { Layout, List, Text } from '@ui-kitten/components'
 
 function FavoriteScreen(): JSX.Element {
   const [favoriteList, setFavoriteList] = useState<Movie[]>([])
@@ -43,30 +43,48 @@ function FavoriteScreen(): JSX.Element {
   return (
     <Layout style={{ height: '100%', width: '100%' }}>
       <Layout style={styles.container}>
-        <List
-          style={{
-            flex: 1,
-            alignSelf: 'center',
-            width: '100%',
-            height: '100%',
-            marginLeft: 20,
-          }}
-          data={favoriteList}
-          renderItem={({ item }) => (
-            <Layout style={styles.movieList}>
-              <MovieItem
-                movie={item}
-                size={coverImageSize['poster']}
-                coverType={'poster'}
-              />
-            </Layout>
-          )}
-          numColumns={2}
-          keyExtractor={(item) => item.id.toString()}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        />
+        <Layout style={{ paddingHorizontal: 8 }}>
+          <Text style={styles.title}>Favorite Kamu ❤️</Text>
+        </Layout>
+        {favoriteList.length !== 0 ? (
+          <Layout
+            style={{
+              height: '100%',
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={styles.subtitle}>
+              Kamu Belum Menambahkan Favorite 😞
+            </Text>
+          </Layout>
+        ) : (
+          <List
+            style={{
+              flex: 1,
+              alignSelf: 'center',
+              width: '100%',
+              height: '100%',
+              marginLeft: 20,
+            }}
+            data={favoriteList}
+            renderItem={({ item }) => (
+              <Layout style={styles.movieList}>
+                <MovieItem
+                  movie={item}
+                  size={coverImageSize['poster']}
+                  coverType={'poster'}
+                />
+              </Layout>
+            )}
+            numColumns={2}
+            keyExtractor={(item) => item.id.toString()}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        )}
       </Layout>
     </Layout>
   )
@@ -85,20 +103,20 @@ const coverImageSize = {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
-    paddingBottom: 0,
+    padding: 14,
+    backgroundColor: 'white',
     height: '100%',
+    paddingTop: 32,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: '900',
-  },
+
   movieList: {
     marginTop: 8,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
+  title: { fontWeight: 'bold', color: '#3F88C5', fontSize: 20 },
+  subtitle: { fontSize: 16 },
 })
 
 export default FavoriteScreen

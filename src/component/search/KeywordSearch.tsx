@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#222',
-    borderRadius: 30,
+    borderRadius: 5,
     paddingHorizontal: 10,
   },
   searchIcon: {

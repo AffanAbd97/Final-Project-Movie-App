@@ -19,7 +19,9 @@ const ListScreen = () => {
   const genre_id = route.params.genre.id
   const genre_name = route.params.genre.name
 
-  navigation.setOptions({ title: genre_name })
+  useEffect(() => {
+    navigation.setOptions({ title: genre_name })
+  }, [genre_name])
   const [movieList, setMovieList] = useState<Movie[]>([])
   const [screen, setScreen] = useState<ScreenState>(ScreenState.Loading)
   const getMovie = async (): Promise<void> => {

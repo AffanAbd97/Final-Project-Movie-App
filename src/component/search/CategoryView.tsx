@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5,
     backgroundColor: '#9bcfff',
-    borderRadius: 15,
+    borderRadius: 5,
     alignItems: 'center',
   },
   selectedGenreButton: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     backgroundColor: '#3f88c5',
-    borderRadius: 25,
+    borderRadius: 5,
     alignItems: 'center',
   },
   searchButtonText: {

@@ -18,10 +18,10 @@ const SearchScreen = (): JSX.Element => {
               style={{
                 ...styles.topBar,
                 backgroundColor: item === selectedBar ? '#3F88C5' : '#82a6c5',
-                borderTopLeftRadius: index === 0 ? 100 : 0,
-                borderBottomLeftRadius: index === 0 ? 100 : 0,
-                borderTopRightRadius: index === 1 ? 100 : 0,
-                borderBottomRightRadius: index === 1 ? 100 : 0,
+                borderTopLeftRadius: index === 0 ? 5 : 0,
+                borderBottomLeftRadius: index === 0 ? 5 : 0,
+                borderTopRightRadius: index === 1 ? 5 : 0,
+                borderBottomRightRadius: index === 1 ? 5 : 0,
               }}
               onPress={() => {
                 setSelectedBar(item)
@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '50%',
-    height: 60,
+    // height: 60,
+    padding: 10,
   },
   topBarLabel: {
     color: 'white',
