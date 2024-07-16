@@ -54,7 +54,7 @@ function HomeScreen(): JSX.Element {
             Temukan film yang cocok dengan selera kamu.
           </Text>
         </Layout>
-        <Avatar source={require('../../assets/icon.png')} />
+        <Avatar source={require('../../assets/user.png')} />
       </Layout>
       <Layout>
         {movieLists.map((movieList) => (
